@@ -1,2 +1,7 @@
-password = input("Password: ")
-print("*" * len(password))
+def main():
+    password = input("Password: ")
+    print("*" * len(password))
+
+
+main()
+
