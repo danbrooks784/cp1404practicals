@@ -1,6 +1,6 @@
 def main():
     password = get_password()
-    print("*" * len(password))
+    print_stars(password)
 
 
 def get_password():
@@ -10,6 +10,10 @@ def get_password():
         print("Password is too short")
         password = input("Password: ")
     return password
+
+
+def print_stars(password):
+    print("*" * len(password))
 
 
 main()
