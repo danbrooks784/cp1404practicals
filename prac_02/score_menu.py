@@ -46,7 +46,7 @@ def determine_result(score):
 
 
 def print_stars(score):
-    """Print score number of stars"""
+    """Print stars based on value of score."""
     print("*" * score)
 
 
