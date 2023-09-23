@@ -9,7 +9,7 @@ MENU = """(G)et score
 
 def main():
     """Run the program."""
-    score = 0
+    score = get_valid_score()
     print(MENU)
     choice = input("> ").upper()
     while choice != "Q":
@@ -18,7 +18,7 @@ def main():
         elif choice == "P":
             print(determine_result(score))
         elif choice == "S":
-            pass
+            print_stars(score)
         else:
             print("Invalid choice.")
         print(MENU)
@@ -43,6 +43,11 @@ def determine_result(score):
         return "Passable"
     else:
         return "Bad"
+
+
+def print_stars(score):
+    """Print score number of stars"""
+    print("*" * score)
 
 
 main()
