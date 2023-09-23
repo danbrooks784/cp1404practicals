@@ -9,28 +9,40 @@ MENU = """(G)et score
 
 def main():
     """Run the program."""
+    score = 0
     print(MENU)
     choice = input("> ").upper()
     while choice != "Q":
         if choice == "G":
             score = get_valid_score()
         elif choice == "P":
-            pass
+            print(determine_result(score))
         elif choice == "S":
             pass
         else:
             print("Invalid choice.")
-            print(MENU)
-            choice = input("> ").upper()
+        print(MENU)
+        choice = input("> ").upper()
+    print("Quitting...")
 
 
 def get_valid_score():
     """Get a score between 0 and 100 from user."""
     score = int(input("Score: "))
-    while score <= 0 or score >= 100:
+    while score < 0 or score > 100:
         print("Invalid score")
         score = int(input("Score: "))
     return score
+
+
+def determine_result(score):
+    """Determine the result of the given score."""
+    if score >= 90:
+        return "Excellent"
+    elif score >= 50:
+        return "Passable"
+    else:
+        return "Bad"
 
 
 main()
