@@ -27,12 +27,15 @@ def main():
 
 def is_valid_password(password):
     """Determine if the provided password is valid."""
+    # Check if the password meets the minimum and maximum length requirements
+    if len(password) < MIN_LENGTH or len(password) > MAX_LENGTH:
+        return False
+
+    # Determine the type of every character in the password
     count_lower = 0
     count_upper = 0
     count_digit = 0
     count_special = 0
-    count_total = 0
-
     for char in password:
         if char.islower():
             count_lower += 1
@@ -42,18 +45,16 @@ def is_valid_password(password):
             count_digit += 1
         elif char in SPECIAL_CHARACTERS:
             count_special += 1
-        count_total += 1
 
-    if count_total < MIN_LENGTH or count_total > MAX_LENGTH:
-        return False
-
+    # Check if there is one of each "normal" character in the password
     if count_lower == 0 or count_upper == 0 or count_digit == 0:
         return False
 
-    # TODO: if special characters are required, then check the count of those
-    # and return False if it's zero
+    # Check if there is a special character in the password, if special characters are required
+    if SPECIAL_CHARS_REQUIRED and count_special == 0:
+        return False
 
-    # if we get here (without returning False), then the password must be valid
+    # If the function reaches this stage, the password is valid
     return True
 
 
