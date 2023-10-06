@@ -1,6 +1,5 @@
 """
-CP1404/CP5632 Practical
-Data file -> lists program
+CP1404 Prac 4 - Subject Reader
 """
 
 FILENAME = "subject_data.txt"
