@@ -11,7 +11,7 @@ number_of_picks = int(input("How many quick picks? "))
 
 for i in range(number_of_picks):
     picks = []
-    for j in range(NUMBERS_PER_LINE):
+    for number in range(NUMBERS_PER_LINE):
         pick = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
         while pick in picks:
             pick = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
