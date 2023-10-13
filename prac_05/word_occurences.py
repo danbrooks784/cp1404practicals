@@ -1,7 +1,7 @@
 """
 CP1404 Prac 5 - Word Occurences
 Estimate: 10 minutes
-Actual:
+Actual: 9 minutes
 """
 
 text = input("Text: ")
@@ -15,5 +15,6 @@ for word in words:
 
 words = list(word_to_count.keys())
 words.sort()
+max_word_length = max(len(word) for word in words)
 for word in words:
-    print(f"{word}: {word_to_count[word]}")
+    print(f"{word:{max_word_length}}: {word_to_count[word]}")
