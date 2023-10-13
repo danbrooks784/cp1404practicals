@@ -1,7 +1,7 @@
 """
 CP1404 Prac 5 - Emails
 Estimate: 15 minutes
-Actual:
+Actual: 19 minutes
 """
 
 
@@ -12,11 +12,12 @@ def main():
     while email != "":
         name = extract_name_from_email(email)
         choice = input(f"Is your name {name}? (Y/n) ").upper()
-        if choice != "y" and choice != "":
+        if choice != "Y" and choice != "":
             name = input("Name: ")
         email_to_name[email] = name
         email = input("Email: ")
-    print(email_to_name)
+    for email, name in email_to_name.items():
+        print(f"{name} ({email})")
 
 
 def extract_name_from_email(email):
