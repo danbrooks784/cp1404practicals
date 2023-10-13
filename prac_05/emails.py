@@ -1,7 +1,7 @@
 """
 CP1404 Prac 5 - Emails
 Estimate: 15 minutes
-Actual: 19 minutes
+Actual: 21 minutes
 """
 
 
@@ -22,8 +22,8 @@ def main():
 
 def extract_name_from_email(email):
     """Extract the user's name from provided email."""
-    name = email.split('@')
-    name_parts = name[0].split('.')
+    email_parts = email.split('@')
+    name_parts = email_parts[0].split('.')
     name = ' '.join(name_parts)
     return name.title()
 
