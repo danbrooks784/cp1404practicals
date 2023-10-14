@@ -1,7 +1,7 @@
 """
 CP1404 Prac 5 - Wimbledon
 Estimated time: 30 minutes
-Actual time:
+Actual time: 27 minutes
 """
 
 FILENAME = "wimbledon.csv"
@@ -22,10 +22,7 @@ def display_champions(records):
     """Print the champions and how many times they have won."""
     champion_to_win_count = {}
     for record in records:
-        try:
-            champion_to_win_count[record[2]] += 1
-        except KeyError:
-            champion_to_win_count[record[2]] = 1
+        champion_to_win_count[record[2]] = champion_to_win_count.get(record[2], 0) + 1
     for champion, win_count in champion_to_win_count.items():
         print(f"{champion} {win_count}")
 
