@@ -15,6 +15,7 @@ def main():
         for line in in_file:
             records.append(line.strip().split(','))
     display_champions(records)
+    display_countries(records)
 
 
 def display_champions(records):
@@ -25,7 +26,17 @@ def display_champions(records):
             champion_to_win_count[record[2]] += 1
         except KeyError:
             champion_to_win_count[record[2]] = 1
-    print(champion_to_win_count)
+    for champion, win_count in champion_to_win_count.items():
+        print(f"{champion} {win_count}")
+
+
+def display_countries(records):
+    """Print the countries of each champion in alphabetical order."""
+    countries = set()
+    for record in records:
+        countries.add(record[1])
+    print(f"\nThese {len(countries)} have won Wimbledon: ")
+    print(', '.join(sorted(countries)))
 
 
 main()
