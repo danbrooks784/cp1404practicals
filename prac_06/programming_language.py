@@ -14,8 +14,9 @@ class ProgrammingLanguage:
         self.year = year
 
     def __str__(self):
+        """Return all values of the class."""
         return f"{self.name}, {self.typing} Typing, Reflection={self.reflection}, First appeared in {self.year}"
 
     def is_dynamic(self):
-        """Return if a language is dynamic."""
+        """Return if a language is dynamically typed."""
         return self.typing == "Dynamic"
