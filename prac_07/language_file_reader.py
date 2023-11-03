@@ -1,7 +1,5 @@
 """
-CP1404/CP5632 Practical
-File and class example - opens/reads a file, stores in objects of custom class
-(contains multiple versions for demonstration: using csv and namedtuple)
+CP1404 Prac 7 - Language File Reader
 """
 
 import csv
@@ -15,7 +13,7 @@ def main():
     languages = []
     # Open the file for reading
     in_file = open('languages.csv', 'r')
-    # File format is like: Language,Typing,Reflection,Year
+    # File format is like: Language,Typing,Reflection,PointerArithmetic,Year
     # 'Consume' the first line (header) - we don't need its contents
     in_file.readline()
     # All other lines are language data
@@ -24,11 +22,12 @@ def main():
         # Strip newline from end and split it into parts (CSV)
         parts = line.strip().split(',')
         # print(parts)  # debugging
-        # Reflection is stored as a string (Yes/No) and we want a Boolean
+        # Reflection and Pointer Arithmetic are stored as a string (Yes/No) and we want a Boolean
         reflection = parts[2] == "Yes"
+        pointer_arithmetic = parts[3] == "Yes"
         # Construct a ProgrammingLanguage object using the elements
         # year should be an int
-        language = ProgrammingLanguage(parts[0], parts[1], reflection, int(parts[3]))
+        language = ProgrammingLanguage(parts[0], parts[1], reflection, pointer_arithmetic, int(parts[4]))
         # Add the language we've just constructed to the list
         languages.append(language)
     # Close the file as soon as we've finished reading it
@@ -63,7 +62,7 @@ def using_namedtuple():
     file_field_names = in_file.readline().strip().split(',')
     print(file_field_names)
     # Language will be a new subclass of the tuple data type class
-    Language = namedtuple('Language', 'name, typing, reflection, year')
+    Language = namedtuple('Language', 'name, typing, reflection, pointer arithmetic, year')
     reader = csv.reader(in_file)  # use default dialect, Excel
 
     for row in reader:
@@ -78,7 +77,7 @@ def using_namedtuple():
 
 def using_csv_namedtuple():
     """Language file reader version using both csv module and named tuple."""
-    Language = namedtuple('Language', 'name, typing, reflection, year')
+    Language = namedtuple('Language', 'name, typing, reflection, pointer arithmetic, year')
     in_file = open("languages.csv", "r")
     in_file.readline()
     for language in map(Language._make, csv.reader(in_file)):
