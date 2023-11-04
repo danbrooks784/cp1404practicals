@@ -17,18 +17,19 @@ def main():
     print(MENU)
     choice = input(">>> ").upper()
     while choice != "Q":
-        if choice == "L":
+        if choice == "L":  # Load projects
             projects = load_projects()
-        elif choice == "S":
+        elif choice == "S":  # Save projects
             save_projects(projects)
-        elif choice == "D":
+        elif choice == "D":  # Display projects
+            projects.sort()
             display_projects(projects)
-        elif choice == "F":
+        elif choice == "F":  # Filter projects
             print("Filter projects by date")
-        elif choice == "A":
+        elif choice == "A":  # Add project
             add_project(projects)
-        elif choice == "U":
-            print("Update project")
+        elif choice == "U":  # Update project
+            update_project(projects)
         else:
             print("Invalid input")
         print(MENU)
@@ -53,7 +54,7 @@ def load_projects():
 
 
 def save_projects(projects):
-    """Save project objects to a specified file."""
+    """Save projects to a specified file."""
     filename = input("Filename: ")
     with open(f"{filename}.txt", "w") as out_file:
         out_file.write("Name	Start Date	Priority	Cost Estimate	Completion Percentage\n")
@@ -63,7 +64,7 @@ def save_projects(projects):
 
 
 def display_projects(projects):
-    projects.sort()
+    """Display incomplete projects, then complete projects."""
     print("Incomplete projects:")
     for project in projects:
         if not project.is_complete():
@@ -76,7 +77,7 @@ def display_projects(projects):
 
 def add_project(projects):
     """Add a new project."""
-    # TODO: Error checking
+    # TODO: Add error checking
     name = input("Name: ")
     start_date = input("Start Date: ")
     priority = int(input("Priority: "))
@@ -84,6 +85,17 @@ def add_project(projects):
     completion_percentage = int(input("Completion Percentage: "))
     projects.append(Project(name, start_date, priority, cost_estimate, completion_percentage))
     return projects
+
+
+def update_project(projects):
+    """Update an existing project's completion percentage and/or priority."""
+    # TODO: Add error checking
+    for i, project in enumerate(projects):
+        print(f"{i} {project}")
+    choice = int(input("Project choice: "))
+    print(projects[choice])
+    projects[choice].update_value("Percentage")
+    projects[choice].update_value("Priority")
 
 
 main()
