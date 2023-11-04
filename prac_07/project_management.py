@@ -20,7 +20,7 @@ def main():
         if choice == "L":
             projects = load_projects()
         elif choice == "S":
-            print("Save projects")
+            save_projects(projects)
         elif choice == "D":
             print("Display projects")
         elif choice == "F":
@@ -50,6 +50,16 @@ def load_projects():
             project = Project(*parts)
             projects.append(project)
     return projects
+
+
+def save_projects(projects):
+    """Save project objects to a specified file."""
+    filename = input("Filename: ")
+    with open(f"{filename}.txt", "w") as out_file:
+        out_file.write("Name	Start Date	Priority	Cost Estimate	Completion Percentage\n")
+        for project in projects:
+            out_file.write(f"{project.name}\t{project.start_date}\t{project.priority}\t{project.cost_estimate}\t"
+                           f"{project.completion_percentage}\n")
 
 
 main()
