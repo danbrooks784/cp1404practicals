@@ -13,11 +13,12 @@ MENU = "- (L)oad projects\n- (S)ave projects\n- (D)isplay projects\n- (F)ilter p
 
 def main():
     """Perform operations on project objects."""
+    projects = []
     print(MENU)
     choice = input(">>> ").upper()
     while choice != "Q":
         if choice == "L":
-            print("Load projects")
+            projects = load_projects()
         elif choice == "S":
             print("Save projects")
         elif choice == "D":
@@ -35,7 +36,20 @@ def main():
     print("Thank you for using custom-built project management software.")
 
 
-# def load_projects():
-    # filename =
+def load_projects():
+    """Load project objects from a specified file."""
+    projects = []
+    filename = input("Filename: ")
+    with open(f"{filename}.txt", "r") as in_file:
+        in_file.readline()
+        for line in in_file:
+            parts = line.strip().split("\t")
+            parts[2] = int(parts[2])
+            parts[3] = float(parts[3])
+            parts[4] = int(parts[4])
+            project = Project(*parts)
+            projects.append(project)
+    return projects
+
 
 main()
