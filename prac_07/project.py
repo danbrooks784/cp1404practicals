@@ -20,7 +20,18 @@ class Project:
         return f"{self.name}, {self.start_date}, {self.priority}, ${self.cost_estimate:.2f}, " \
                f"{self.completion_percentage}%"
 
+    def __gt__(self, other):
+        """Determine if a project's priority is higher than another project's priority."""
+        return self.priority > other.priority
+
+    def is_complete(self):
+        """Determine if a project is 100% complete."""
+        return self.completion_percentage == 100
+
 
 if __name__ == "__main__":
     test_project = Project("Test", "20/02/2033", 9, 500, 100)
-    print(test_project)
+    other_project = Project("Test2", "3", 3, 3, 90)
+    print(test_project.is_complete())
+    print(other_project.is_complete())
+    print(test_project > other_project)
