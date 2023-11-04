@@ -14,3 +14,6 @@ with open("guitars.csv", "r") as in_file:
         print(row)
         guitar = Guitar(row[0], row[1], row[2])
         guitars.append(guitar)
+
+# Sort guitars by oldest to newest
+guitars.sort()
