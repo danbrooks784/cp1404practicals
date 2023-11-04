@@ -22,7 +22,7 @@ def main():
         elif choice == "S":
             save_projects(projects)
         elif choice == "D":
-            print("Display projects")
+            display_projects(projects)
         elif choice == "F":
             print("Filter projects by date")
         elif choice == "A":
@@ -60,6 +60,18 @@ def save_projects(projects):
         for project in projects:
             out_file.write(f"{project.name}\t{project.start_date}\t{project.priority}\t{project.cost_estimate}\t"
                            f"{project.completion_percentage}\n")
+
+
+def display_projects(projects):
+    projects.sort()
+    print("Incomplete projects:")
+    for project in projects:
+        if not project.is_complete():
+            print(f"  {project}")
+    print("Complete projects:")
+    for project in projects:
+        if project.is_complete():
+            print(f"  {project}")
 
 
 def add_project(projects):
