@@ -26,7 +26,7 @@ def main():
         elif choice == "F":
             print("Filter projects by date")
         elif choice == "A":
-            print("Add new project")
+            add_project(projects)
         elif choice == "U":
             print("Update project")
         else:
@@ -60,6 +60,18 @@ def save_projects(projects):
         for project in projects:
             out_file.write(f"{project.name}\t{project.start_date}\t{project.priority}\t{project.cost_estimate}\t"
                            f"{project.completion_percentage}\n")
+
+
+def add_project(projects):
+    """Add a new project."""
+    # TODO: Error checking
+    name = input("Name: ")
+    start_date = input("Start Date: ")
+    priority = int(input("Priority: "))
+    cost_estimate = float(input("Cost Estimate: $"))
+    completion_percentage = int(input("Completion Percentage: "))
+    projects.append(Project(name, start_date, priority, cost_estimate, completion_percentage))
+    return projects
 
 
 main()
