@@ -17,12 +17,14 @@ class Project:
         self.completion_percentage = completion_percentage
 
     def __str__(self):
-        return f"{self.name}, {self.start_date}, {self.priority}, ${self.cost_estimate:.2f}, " \
-               f"{self.completion_percentage}%"
+        """Return all the object's values."""
+        return f"{self.name}, start: {self.start_date}, priority {self.priority}, " \
+               f"estimate: ${self.cost_estimate:.2f}, completion: {self.completion_percentage}%"
 
-    def __gt__(self, other):
+    def __lt__(self, other):
         """Determine if a project's priority is higher than another project's priority."""
-        return self.priority > other.priority
+        # Lower priority *value* means a higher priority!!
+        return self.priority < other.priority
 
     def is_complete(self):
         """Determine if a project is 100% complete."""
