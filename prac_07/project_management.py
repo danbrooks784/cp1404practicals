@@ -25,7 +25,7 @@ def main():
             projects.sort()
             display_projects(projects)
         elif choice == "F":  # Filter projects
-            print("Filter projects by date")
+            filter_projects(projects)
         elif choice == "A":  # Add project
             add_project(projects)
         elif choice == "U":  # Update project
@@ -40,7 +40,7 @@ def main():
 def load_projects(projects):
     """Load project objects from a specified file."""
     filename = input("Filename: ")
-    with open(f"{filename}.txt", "r") as in_file:
+    with open(filename, "r") as in_file:
         in_file.readline()
         for line in in_file:
             parts = line.strip().split("\t")
@@ -56,11 +56,11 @@ def load_projects(projects):
 def save_projects(projects):
     """Save projects to a specified file."""
     filename = input("Filename: ")
-    with open(f"{filename}.txt", "w") as out_file:
+    with open(filename, "w") as out_file:
         out_file.write("Name	Start Date	Priority	Cost Estimate	Completion Percentage\n")
         for project in projects:
-            out_file.write(f"{project.name}\t{project.start_date}\t{project.priority}\t{project.cost_estimate}\t"
-                           f"{project.completion_percentage}\n")
+            out_file.write(f"{project.name}\t{project.start_date.strftime('%d/%m/%Y')}\t{project.priority}\t"
+                           f"{project.cost_estimate}\t{project.completion_percentage}\n")
 
 
 def display_projects(projects):
@@ -75,14 +75,22 @@ def display_projects(projects):
             print(f"  {project}")
 
 
+def filter_projects(projects):
+    """Display projects that were started after a specific date."""
+    filter_date = get_valid_date("Show projects that start after date (dd/mm/yy): ")
+    for project in projects:
+        if project.start_date >= filter_date:
+            print(project)
+
+
 def add_project(projects):
     """Add a new project."""
     print("Let's add a new project")
-    name = input("Name: ")  # String
-    start_date = get_valid_date("Start date (dd/mm/yy): ")  # Datetime
-    priority = get_valid_number("Priority: ", 1, 9, True)  # Integer
-    cost_estimate = get_valid_number("Cost Estimate: $", 0, 1000000, False)  # Float
-    completion_percentage = get_valid_number("Completion Percentage: ", 0, 100, True)  # Integer
+    name = input("Name: ")  # Format: String
+    start_date = get_valid_date("Start date (dd/mm/yy): ")  # Format: Datetime
+    priority = get_valid_number("Priority: ", 1, 9, True)  # Format: Integer
+    cost_estimate = get_valid_number("Cost Estimate: $", 0, 1000000, False)  # Format: Float
+    completion_percentage = get_valid_number("Completion Percentage: ", 0, 100, True)  # Format: Integer
     projects.append(Project(name, start_date, priority, cost_estimate, completion_percentage))
     return projects
 
@@ -93,8 +101,8 @@ def update_project(projects):
         print(f"{i} {project}")
     index = int(input("Project choice: "))
     print(projects[index])
-    projects[index].completion_percentage = get_valid_attribute("Percentage")
-    projects[index].priority = get_valid_attribute("Priority")
+    projects[index].completion_percentage = get_valid_number("New Percentage: ", 0, 100, True)
+    projects[index].priority = get_valid_number("New Priority: ", 1, 9, True)
 
 
 def get_valid_number(message, low, high, is_integer):
@@ -116,9 +124,9 @@ def get_valid_number(message, low, high, is_integer):
 
 def get_valid_date(message):
     """Get a valid date input in either dd/mm/yy or dd/mm/yyyy format."""
-    date_string = input(message)
     is_valid_input = False
     while not is_valid_input:
+        date_string = input(message)
         try:  # Check if format is dd/mm/yy
             date = datetime.datetime.strptime(date_string, "%d/%m/%y").date()
             is_valid_input = True
@@ -127,22 +135,8 @@ def get_valid_date(message):
                 date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
                 is_valid_input = True
             except ValueError:
-                date_string = input(message)
+                print("Invalid date.")
     return date
-
-
-def get_valid_attribute(attribute_name):
-    """Get a valid project attribute."""
-    attribute = input(f"New {attribute_name}: ")
-    if attribute != "":
-        is_valid_input = False
-        while not is_valid_input:
-            try:
-                int(attribute)
-                is_valid_input = True
-            except ValueError:
-                print("Invalid attribute.")
-        return int(attribute)
 
 
 main()
