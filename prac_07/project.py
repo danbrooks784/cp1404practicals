@@ -4,11 +4,14 @@ Estimated time: 60 minutes
 Actual time:
 """
 
+import datetime
+
 
 class Project:
     """Project object."""
 
-    def __init__(self, name="", start_date="", priority=0, cost_estimate=0.0, completion_percentage=0):
+    def __init__(self, name="", start_date=datetime.datetime(2000, 1, 1), priority=0, cost_estimate=0.0,
+                 completion_percentage=0):
         """Construct a Project object."""
         self.name = name
         self.start_date = start_date
@@ -18,7 +21,7 @@ class Project:
 
     def __str__(self):
         """Return all the object's values."""
-        return f"{self.name}, start: {self.start_date}, priority {self.priority}, " \
+        return f"{self.name}, start: {self.start_date.strftime('%d/%m/%Y')}, priority {self.priority}, " \
                f"estimate: ${self.cost_estimate:.2f}, completion: {self.completion_percentage}%"
 
     def __lt__(self, other):
