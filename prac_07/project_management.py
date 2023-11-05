@@ -25,7 +25,6 @@ def main():
             projects.sort()
             display_projects(projects)
         elif choice == "F":  # Filter projects
-            # TODO: Datetime shenanigans
             print("Filter projects by date")
         elif choice == "A":  # Add project
             add_project(projects)
@@ -78,13 +77,12 @@ def display_projects(projects):
 
 def add_project(projects):
     """Add a new project."""
-    # TODO: Add error checking
     print("Let's add a new project")
-    name = input("Name: ")
-    start_date = get_valid_date("Start date (dd/mm/yy): ")
-    priority = int(input("Priority: "))
-    cost_estimate = float(input("Cost Estimate: $"))
-    completion_percentage = int(input("Completion Percentage: "))
+    name = input("Name: ")  # String
+    start_date = get_valid_date("Start date (dd/mm/yy): ")  # Datetime
+    priority = get_valid_number("Priority: ", 1, 9, True)  # Integer
+    cost_estimate = get_valid_number("Cost Estimate: $", 0, 1000000, False)  # Float
+    completion_percentage = get_valid_number("Completion Percentage: ", 0, 100, True)  # Integer
     projects.append(Project(name, start_date, priority, cost_estimate, completion_percentage))
     return projects
 
@@ -97,6 +95,23 @@ def update_project(projects):
     print(projects[index])
     projects[index].completion_percentage = get_valid_attribute("Percentage")
     projects[index].priority = get_valid_attribute("Priority")
+
+
+def get_valid_number(message, low, high, is_integer):
+    """Get a number that is within specified bounds."""
+    is_valid_input = False
+    while not is_valid_input:
+        try:
+            number = float(input(message))
+            if low <= number <= high:
+                if is_integer:
+                    number = int(number)
+                is_valid_input = True
+            else:
+                print(f"Number must be more than {low} and less than {high}.")
+        except ValueError:
+            print("Invalid number.")
+    return number
 
 
 def get_valid_date(message):
