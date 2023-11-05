@@ -29,12 +29,3 @@ class Project:
     def is_complete(self):
         """Determine if a project is 100% complete."""
         return self.completion_percentage == 100
-
-    def update_value(self, value_type):
-        """Update completion percentage and priority values based on user input."""
-        new_value = input(f"New {value_type}: ")
-        if new_value != "":
-            if value_type == "Percentage":
-                self.completion_percentage = int(new_value)
-            elif value_type == "Priority":
-                self.priority = int(new_value)

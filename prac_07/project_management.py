@@ -25,6 +25,7 @@ def main():
             projects.sort()
             display_projects(projects)
         elif choice == "F":  # Filter projects
+            # TODO: Datetime shenanigans
             print("Filter projects by date")
         elif choice == "A":  # Add project
             add_project(projects)
@@ -89,13 +90,20 @@ def add_project(projects):
 
 def update_project(projects):
     """Update an existing project's completion percentage and/or priority."""
-    # TODO: Add error checking
     for i, project in enumerate(projects):
         print(f"{i} {project}")
-    choice = int(input("Project choice: "))
-    print(projects[choice])
-    projects[choice].update_value("Percentage")
-    projects[choice].update_value("Priority")
+    index = int(input("Project choice: "))
+    print(projects[index])
+    projects[index].completion_percentage = get_number("Percentage")
+    projects[index].priority = get_number("Priority")
+
+
+def get_number(attribute_name):
+    """Get a value for a project attribute."""
+    # TODO: Add error checking
+    value = input(f"New {attribute_name}: ")
+    if value != "":
+        return int(value)
 
 
 main()
