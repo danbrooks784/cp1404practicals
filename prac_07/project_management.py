@@ -18,7 +18,7 @@ def main():
     choice = input(">>> ").upper()
     while choice != "Q":
         if choice == "L":  # Load projects
-            projects = load_projects()
+            load_projects(projects)
         elif choice == "S":  # Save projects
             save_projects(projects)
         elif choice == "D":  # Display projects
@@ -38,14 +38,14 @@ def main():
     print("Thank you for using custom-built project management software.")
 
 
-def load_projects():
+def load_projects(projects):
     """Load project objects from a specified file."""
-    projects = []
     filename = input("Filename: ")
     with open(f"{filename}.txt", "r") as in_file:
         in_file.readline()
         for line in in_file:
             parts = line.strip().split("\t")
+            parts[1] = datetime.datetime.strptime(parts[1], "%d/%m/%Y").date()
             parts[2] = int(parts[2])
             parts[3] = float(parts[3])
             parts[4] = int(parts[4])
@@ -79,8 +79,9 @@ def display_projects(projects):
 def add_project(projects):
     """Add a new project."""
     # TODO: Add error checking
+    print("Let's add a new project")
     name = input("Name: ")
-    start_date = input("Start Date: ")
+    start_date = get_valid_date("Start date (dd/mm/yy): ")
     priority = int(input("Priority: "))
     cost_estimate = float(input("Cost Estimate: $"))
     completion_percentage = int(input("Completion Percentage: "))
@@ -94,16 +95,39 @@ def update_project(projects):
         print(f"{i} {project}")
     index = int(input("Project choice: "))
     print(projects[index])
-    projects[index].completion_percentage = get_number("Percentage")
-    projects[index].priority = get_number("Priority")
+    projects[index].completion_percentage = get_valid_attribute("Percentage")
+    projects[index].priority = get_valid_attribute("Priority")
 
 
-def get_number(attribute_name):
-    """Get a value for a project attribute."""
-    # TODO: Add error checking
-    value = input(f"New {attribute_name}: ")
-    if value != "":
-        return int(value)
+def get_valid_date(message):
+    """Get a valid date input in either dd/mm/yy or dd/mm/yyyy format."""
+    date_string = input(message)
+    is_valid_input = False
+    while not is_valid_input:
+        try:  # Check if format is dd/mm/yy
+            date = datetime.datetime.strptime(date_string, "%d/%m/%y").date()
+            is_valid_input = True
+        except ValueError:
+            try:  # Check if format is dd/mm/yyyy
+                date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+                is_valid_input = True
+            except ValueError:
+                date_string = input(message)
+    return date
+
+
+def get_valid_attribute(attribute_name):
+    """Get a valid project attribute."""
+    attribute = input(f"New {attribute_name}: ")
+    if attribute != "":
+        is_valid_input = False
+        while not is_valid_input:
+            try:
+                int(attribute)
+                is_valid_input = True
+            except ValueError:
+                print("Invalid attribute.")
+        return int(attribute)
 
 
 main()
