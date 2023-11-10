@@ -12,6 +12,7 @@ CONVERSION_RATE = 1.609
 
 class MilesKilometersConverter(App):
     """Convert a distance in miles to kilometers."""
+
     def build(self):
         """Build Converter app from KV file."""
         self.title = "Convert Miles to Kilometers"
@@ -19,7 +20,7 @@ class MilesKilometersConverter(App):
         return self.root
 
     def handle_increment(self, amount):
-        """Increase or decrease the input field by 1."""
+        """Increase or decrease the distance by 1."""
         result = self.get_distance_miles() + amount
         self.root.ids.input_field.text = str(result)
 
@@ -29,6 +30,7 @@ class MilesKilometersConverter(App):
         self.root.ids.output_label.text = str(distance_km)
 
     def get_distance_miles(self):
+        """Perform error checking on distance input."""
         try:
             return float(self.root.ids.input_field.text)
         except ValueError:
