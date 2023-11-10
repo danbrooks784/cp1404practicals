@@ -6,6 +6,7 @@ Actual time: 41 minutes
 
 from kivy.app import App
 from kivy.lang import Builder
+from kivy.core.window import Window
 
 CONVERSION_RATE = 1.609
 
@@ -15,8 +16,10 @@ class MilesKilometersConverter(App):
 
     def build(self):
         """Build Converter app from KV file."""
+        Window.size = (400, 200)
         self.title = "Convert Miles to Kilometers"
         self.root = Builder.load_file("convert_miles_km.kv")
+        self.handle_conversion()  # Convert the default distance
         return self.root
 
     def handle_increment(self, amount):
