@@ -1,7 +1,7 @@
 """
 CP1404 Prac 9 - Taxi Simulator
 Estimated time: 60 minutes
-Actual time: 45 minutes
+Actual time: 50 minutes
 """
 
 from taxi import Taxi
@@ -46,7 +46,7 @@ def display_taxis(taxis):
 def choose_taxi(taxis):
     """Choose from a list of available taxis."""
     try:
-        index = int(input(">>> "))
+        index = int(get_valid_number(">>> "))
         chosen_taxi = taxis[index]
         return chosen_taxi
     except IndexError:
@@ -57,7 +57,7 @@ def drive_taxi(current_taxi):
     """Enter a distance to drive the chosen taxi."""
     try:
         current_taxi.start_fare()
-        distance = float(input("Drive how far? "))
+        distance = get_valid_number("Drive how far? ")
         current_taxi.drive(distance)
     except AttributeError:
         print("You need to choose a taxi before you can drive")
@@ -71,6 +71,21 @@ def determine_fare(current_taxi):
         return fare
     except AttributeError:
         return 0
+
+
+def get_valid_number(message):
+    """Get a number >= 0 as an input."""
+    is_valid_input = False
+    while not is_valid_input:
+        try:
+            number = float(input(message))
+            if number < 0:
+                print("Number must be >= 0")
+            else:
+                is_valid_input = True
+                return number
+        except ValueError:
+            print("Invalid number")
 
 
 main()
