@@ -1,7 +1,7 @@
 """
 CP1404 Prac 9 - Taxi Simulator
 Estimated time: 60 minutes
-Actual time:
+Actual time: 45 minutes
 """
 
 from taxi import Taxi
@@ -11,29 +11,40 @@ MENU = "Let's drive!\nq)uit, c)hoose taxi, d)rive"
 
 
 def main():
-    """Choose a taxi, choose the distance to drive, then display trip cost."""
+    """Choose a taxi or enter distance to drive, then display total trip cost."""
     current_taxi = None
     bill = 0.0
     taxis = [Taxi("Prius", 100), SilverServiceTaxi("Limo", 100, 2), SilverServiceTaxi("Hummer", 200, 4)]
+
     print(MENU)
     choice = input(">>> ").upper()
     while choice != "Q":
         if choice == "C":
+            print("Taxis available:")
+            display_taxis(taxis)
             current_taxi = choose_taxi(taxis)
         elif choice == "D":
-            fare = drive_taxi(current_taxi)
-            bill += fare
+            drive_taxi(current_taxi)
+            bill += determine_fare(current_taxi)
         else:
             print("Invalid option")
         print(f"Bill to date: ${bill:.2f}")
         print(MENU)
         choice = input(">>> ").upper()
 
+    print(f"Total trip cost: ${bill:.2f}")
+    print("Taxis are now:")
+    display_taxis(taxis)
+
+
+def display_taxis(taxis):
+    """Display the list of taxis."""
+    for i, taxi in enumerate(taxis):
+        print(f"{i} - {taxi}")
+
 
 def choose_taxi(taxis):
     """Choose from a list of available taxis."""
-    for i, taxi in enumerate(taxis):
-        print(f"{i} - {taxi}")
     try:
         index = int(input(">>> "))
         chosen_taxi = taxis[index]
@@ -43,15 +54,22 @@ def choose_taxi(taxis):
 
 
 def drive_taxi(current_taxi):
-    if current_taxi:
+    """Enter a distance to drive the chosen taxi."""
+    try:
         current_taxi.start_fare()
-        distance = int(input("Drive how far? "))
+        distance = float(input("Drive how far? "))
         current_taxi.drive(distance)
+    except AttributeError:
+        print("You need to choose a taxi before you can drive")
+
+
+def determine_fare(current_taxi):
+    """Determine the fare for the current taxi."""
+    try:
         fare = current_taxi.get_fare()
         print(f"Your {current_taxi.name} cost you ${fare:.2f}")
         return fare
-    else:
-        print("You need to choose a taxi before you can drive")
+    except AttributeError:
         return 0
 
 
