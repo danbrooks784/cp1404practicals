@@ -23,5 +23,5 @@ would probably make the Prac 7 Project Management exercise shorter if I were in 
 
 ## Completed Code Reviews
 
-[jackcox343 Prac 06 feedback](https://github.com/jackcox343/cp1404practicals/pull/3)
-[JoshuaDelosSantos Prac 08 feedback](https://github.com/JoshuaDelosSantos/cp1404practicals/pull/5)
+- [jackcox343 Prac 06 feedback](https://github.com/jackcox343/cp1404practicals/pull/3)
+- [JoshuaDelosSantos Prac 08 feedback](https://github.com/JoshuaDelosSantos/cp1404practicals/pull/5)
