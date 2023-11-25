@@ -11,4 +11,17 @@ improved over the full subject period, but it definitely improved from Pracs 7-8
 
 ## Code Reviews
 
+Of the five code reviews so far, only two people actually responded to the request. I didn't get much feedback from them
+either, pretty much just to remember to add docstrings. On the other hand, through performing code reviews I noticed
+just how many ways there are to do these tasks in Python, as typically the solution I reviewed was pretty different to
+mine. I also feel like I understand SRP a lot more clearly now that I've reviewed code.
+
 ## Practical Tasks
+
+I think the practical tasks are great and tested my knowledge of the subject in a challenging, but forgiving way. I
+would probably make the Prac 7 Project Management exercise shorter if I were in charge.
+
+## Completed Code Reviews
+
+[jackcox343 Prac 06 feedback](https://github.com/jackcox343/cp1404practicals/pull/3)
+[JoshuaDelosSantos Prac 08 feedback](https://github.com/JoshuaDelosSantos/cp1404practicals/pull/5)
