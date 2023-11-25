@@ -1,5 +1,5 @@
 """
-CP1404/CP5632 Practical
+CP1404 Prac 10
 Testing demo using assert and doctest
 """
 
@@ -22,7 +22,7 @@ def is_long_word(word, length=5):
     >>> is_long_word("Python", 6)
     True
     """
-    return len(word) > length
+    return len(word) >= length
 
 
 def run_tests():
@@ -47,19 +47,20 @@ def run_tests():
 
 run_tests()
 
-# TODO: 3. Uncomment the following line and run the doctests
-# (PyCharm may see your >>> doctest comments and run doctests anyway.)
-# doctest.testmod()
+doctest.testmod()
 
-# TODO: 4. Fix the failing is_long_word function
-# (don't change the tests, change the function!)
 
-# TODO: 5. Write and test a function to format a phrase as a sentence,
-# starting with a capital and ending with a single full stop.
-# Important: start with a function header and just use pass as the body
-# then add doctests for 3 tests:
-# 'hello' -> 'Hello.'
-# 'It is an ex parrot.' -> 'It is an ex parrot.'
-# and one more you decide (one that is valid!)
-# test this and watch the tests fail
-# then write the body of the function so that the tests pass
+def format_as_sentence(phrase):
+    """
+    Determine if the word is as long or longer than the length passed in
+    >>> format_as_sentence("hello")
+    'Hello.'
+    >>> format_as_sentence("It is an ex parrot.")
+    'It is an ex parrot.'
+    >>> format_as_sentence("This sentence is false")
+    'This sentence is false.'
+    """
+    sentence = phrase.capitalize()
+    if not sentence.endswith("."):
+        sentence += "."
+    return sentence
